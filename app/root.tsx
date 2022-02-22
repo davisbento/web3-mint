@@ -7,7 +7,7 @@ export function links() {
 }
 
 export const meta: MetaFunction = () => {
-	return { title: 'New Remix App' };
+	return { title: 'Web3 Mint App' };
 };
 
 export default function App() {

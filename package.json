@@ -14,6 +14,7 @@
     "test": "npx hardhat test"
   },
   "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0",
     "@remix-run/react": "^1.2.2",
     "@remix-run/serve": "^1.2.2",
     "cross-env": "^7.0.3",

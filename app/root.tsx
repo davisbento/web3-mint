@@ -7,7 +7,7 @@ export function links() {
 }
 
 export const meta: MetaFunction = () => {
-	return { title: 'Web3 Mint App' };
+	return { title: 'Zombie Factory' };
 };
 
 export default function App() {

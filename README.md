@@ -1,3 +1,3 @@
-# Web3 Project
+# Web3 Project Zombie Factory
 
 ### Solidity + Hardhat + Remix (React framework)

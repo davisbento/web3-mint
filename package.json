@@ -11,7 +11,10 @@
     "dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css",
     "postinstall": "remix setup node",
     "start": "cross-env NODE_ENV=production remix-serve build",
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "compile:testnet": "npx hardhat run --network testnet scripts/compile.ts",
+    "deploy:testnet": "npx hardhat run --network testnet scripts/deploy.ts",
+    "clean": "npx hardhat clean"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.5.0",

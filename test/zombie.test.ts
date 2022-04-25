@@ -16,8 +16,6 @@ describe('ZombieFactory Contract', function () {
 	});
 
 	it('Should create a zombie and return new array length', async function () {
-		console.log(accounts[0].address);
-		console.log(accounts[1].address);
 		await contract.createZombie('Buckethead');
 		await contract.createZombie('Pyramidhead');
 

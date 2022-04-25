@@ -8,6 +8,7 @@ interface IZombie {
 	id: number;
 	name: string;
 	dna: string;
+	avatar: string;
 }
 
 export default function Index() {
@@ -42,6 +43,7 @@ export default function Index() {
 			const zombie = await contract!.getZombieByIndex(id);
 			zombies.push({
 				id,
+				avatar: '/images/zombie.png',
 				name: zombie.name,
 				dna: bigNumToString(zombie.dna)
 			});
@@ -90,20 +92,18 @@ export default function Index() {
 			<h1 className='font-bold text-5xl text-red-500'>Welcome to Zombie Factory</h1>
 
 			<div className='mt-5'>
-				<p className='text-xl text-gray-500 text-center'>
-					This is a simple contract that allows you to create zombies.
-				</p>
+				<p className='text-xl text-white text-center'>This is a simple contract that allows you to create zombies.</p>
 			</div>
 
 			{hasLoaded && (
 				<div className='flex justify-center items-center flex-col mt-10'>
-					<p className='text-xl text-slate-700 text-center'>Your address: {address}</p>
+					<p className='text-xl text-white text-center'>Your address: {address}</p>
 
-					<p className='text-xl text-gray-500 text-center'>Create your zombie</p>
+					<p className='text-xl text-white text-center'>Create your zombie</p>
 
 					<input
 						name='name'
-						className='w-full p-2 mt-5 border border-gray-500'
+						className='w-full p-2 mt-5 border border-white'
 						placeholder='Name'
 						onChange={(e) => setZombieName(e.target.value)}
 					/>
@@ -116,13 +116,16 @@ export default function Index() {
 
 			{zombies.length > 0 && (
 				<div className='flex justify-center items-center flex-col mt-10'>
-					<p className='text-xl text-slate-700 text-center'>Your zombies</p>
+					<p className='text-xl text-white text-center mb-16'>Your zombies</p>
 
-					<div className='flex flex-wrap justify-center items-center'>
+					<div className='grid grid-cols-4 gap-16'>
 						{zombies.map((zombie) => (
-							<div className='p-2 border border-gray-500' key={zombie.id}>
-								<p className='text-xl text-gray-500'>Name: {zombie.name}</p>
-								<p className='text-xl text-gray-500'>DNA: {zombie.dna}</p>
+							<div key={zombie.id}>
+								<p className='text-xl text-white'>Name: {zombie.name}</p>
+								<p className='text-xl text-white'>DNA: {zombie.dna}</p>
+								<div className='h-52'>
+									<img className='object-contain w-full h-full' src={zombie.avatar} alt='Zombie' />
+								</div>
 							</div>
 						))}
 					</div>

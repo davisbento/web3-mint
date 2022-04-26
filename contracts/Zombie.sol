@@ -12,7 +12,12 @@ contract ZombieFactory {
 
     struct Zombie {
         string name;
+        address owner;
         uint256 dna;
+        uint256 level;
+        uint256 health;
+        uint256 attack;
+        uint256 defense;
     }
 
     Zombie[] public zombies;
@@ -21,7 +26,17 @@ contract ZombieFactory {
         uint256 _zombieId = zombies.length;
         uint256 _dna = _generateRandomDna(_name);
 
-        zombies.push(Zombie({name: _name, dna: _dna}));
+        zombies.push(
+            Zombie({
+                name: _name,
+                owner: msg.sender,
+                dna: _dna,
+                level: 1,
+                health: 100,
+                attack: 10,
+                defense: 10
+            })
+        );
         _updateZombiesByAddress(_zombieId);
 
         emit NewZombie(_zombieId, _name, _dna);
@@ -47,6 +62,27 @@ contract ZombieFactory {
         return zombiesByAddress[_address];
     }
 
+    function getRandomZombieDifferentFromMyAddress(address _address)
+        public
+        view
+        returns (Zombie memory)
+    {
+        Zombie memory _matchZombie;
+
+        for (uint256 _zombieId = 0; _zombieId < zombies.length; _zombieId++) {
+            uint256 _randomIndex = _generateRandomIndex() % zombies.length;
+
+            Zombie memory _zombie = getZombieByIndex(_randomIndex);
+
+            if (_zombie.owner != _address) {
+                _matchZombie = _zombie;
+                break;
+            }
+        }
+
+        return _matchZombie;
+    }
+
     function _updateZombiesByAddress(uint256 _zombieId) private {
         zombiesByAddress[msg.sender].push(_zombieId);
     }
@@ -58,5 +94,12 @@ contract ZombieFactory {
     {
         uint256 rand = uint256(keccak256(abi.encodePacked(_str)));
         return rand % dnaModulus;
+    }
+
+    function _generateRandomIndex() private view returns (uint256) {
+        return
+            uint256(
+                keccak256(abi.encodePacked(block.difficulty, block.timestamp))
+            );
     }
 }

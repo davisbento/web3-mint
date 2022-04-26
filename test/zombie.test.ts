@@ -32,6 +32,18 @@ describe('ZombieFactory Contract', function () {
 		expect(zombie1.name).to.equal('Pyramidhead');
 	});
 
+	it('Should return same zombie owner', async function () {
+		await contract.createZombie('Buckethead');
+		await contract.createZombie('Pyramidhead');
+
+		const owner = accounts[0].address;
+
+		const zombie0 = await contract.getZombieByIndex(0);
+		expect(zombie0.owner).to.equal(owner);
+		const zombie1 = await contract.getZombieByIndex(1);
+		expect(zombie1.owner).to.equal(owner);
+	});
+
 	it('Should get zombie by address', async function () {
 		await contract.createZombie('Buckethead');
 		await contract.createZombie('Pyramidhead');
